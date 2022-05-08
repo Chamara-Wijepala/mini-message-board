@@ -14,12 +14,32 @@ const messages = [
   }
 ];
 
-/* GET home page. */
+/* home page */
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Mini Messageboard',
     messages
   });
+});
+
+/* /new */
+router.get('/new', function(req, res, next) {
+  res.render('form', {
+    title: `What's on your mind?`
+  });
+});
+
+router.post('/new', function(req, res, next) {
+  const user = req.body.username
+  const text = req.body.message
+
+  messages.push({
+    text,
+    user,
+    added: new Date()
+  });
+
+  res.redirect('/');
 });
 
 module.exports = router;
